@@ -1,0 +1,18 @@
+# Raw H&M data
+data/
+transactions_train.csv
+customers.csv
+articles.csv
+*.zip
+
+# Local DuckDB database
+*.duckdb
+*.duckdb.wal
+
+# Jupyter and Python temporary files
+.ipynb_checkpoints/
+__pycache__/
+
+# macOS files
+.DS_Store
+
