@@ -1,4 +1,4 @@
-H&M Customer Retention Analysis
+## H&M Customer Retention Analysis
 What drives a second purchase within 90 days?
 A customer-retention portfolio project using 31.8M H&M transaction lines to understand which early customer and purchase characteristics are associated with a second observed purchase within 90 days — and how those findings could inform a CRM experiment.
 
@@ -195,3 +195,4 @@ Business Recommendation
 Prioritize a randomized CRM re-engagement test among eligible non-subscribed customers.
 
 The analysis suggests that CRM engagement is strongly associated with higher repeat purchase, but only an experiment can determine whether a targeted intervention creates incremental retention. If the test produces a meaningful uplift, the strategy can then be evaluated for broader rollout and further segmentation.
+##
