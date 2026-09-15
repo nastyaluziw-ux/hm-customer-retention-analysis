@@ -7,21 +7,15 @@ A customer-retention analysis using **31.8M H&M transaction lines** to understan
 **Analysis window:** Jan 2019–May 2020  
 **Primary KPI:** 90-day second-purchase rate
 
-### 📊 ### ### 📊 Interactive Dashboard
+### 📊 ### ###### 📊 Interactive Dashboard
 
-[View the interactive dashboard in Looker Studio →](https://datastudio.google.com/s/ooqWVRHK71I)
+[View the interactive Looker Studio dashboard →](https://datastudio.google.com/s/ooqWVRHK71I)
 
-## Dashboard Preview
+### Dashboard Preview
 
-![H&M Customer Retention Dashboard](https://raw.githubusercontent.com/nastyaluziw-ux/hm-customer-retention-analysis/main/hm_retention_dashboard.png)
+[📄 View the dashboard PDF →](hm_retention_dashboard.pdf)
 
-[Open dashboard image in GitHub →](https://github.com/nastyaluziw-ux/hm-customer-retention-analysis/blob/main/hm_retention_dashboard.png)
-
----
-
----
-
----
+*Static preview of the final H&M Customer Retention Dashboard.*
 
 ---
 
