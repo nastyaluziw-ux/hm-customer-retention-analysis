@@ -9,9 +9,11 @@ A customer-retention analysis using **31.8M H&M transaction lines** to understan
 
 ### 📊 ### 📊 [View the Interactive Looker Studio Dashboard](https://datastudio.google.com/s/ooqWVRHK71I)
 
-[![H&M Customer Retention Dashboard](hm_retention_dashboard.png)](https://datastudio.google.com/s/ooqWVRHK71I)
+![H&M Customer Retention Dashboard](hm_retention_dashboard.png)
 
-*Interactive dashboard built in Looker Studio — click the image to explore.*
+*Dashboard preview — built in Looker Studio.*
+
+---
 
 ---
 
