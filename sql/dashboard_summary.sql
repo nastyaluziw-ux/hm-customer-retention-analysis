@@ -128,27 +128,35 @@ UNION ALL
 -- Retained vs non-retained customers
 SELECT
     'Retention Status' AS analysis_type,
-    CASE
-        WHEN ret_90d = 1 THEN 'Retained'
-        ELSE 'Not retained'
-    END AS segment,
-    CASE
-        WHEN ret_90d = 1 THEN 1
-        ELSE 2
-    END AS sort_order,
-    COUNT(*) AS customers,
+    'Retained' AS segment,
+    1 AS sort_order,
+    SUM(ret_90d) AS customers,
     SUM(ret_90d) AS retained_90d,
     AVG(ret_90d) AS retention_90d,
+    NULL AS crm_gap_pp,
+    NULL AS ab_mde_pp,
+    NULL AS ab_sample_total,
+    NULL AS recruitment_days,
+    NULL AS final_readout_days
+FROM dashboard_customer_mart
+
+UNION ALL
+
+SELECT
+    'Retention Status',
+    'Not retained',
+    2,
+    COUNT(*) - SUM(ret_90d),
+    0,
+    1 - AVG(ret_90d),
     NULL,
     NULL,
     NULL,
     NULL,
     NULL
 FROM dashboard_customer_mart
-GROUP BY ret_90d
 
 
-UNION ALL
 
 -- 30-day repeat purchase
 SELECT
