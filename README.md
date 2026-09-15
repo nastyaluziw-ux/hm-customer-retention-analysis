@@ -1,198 +1,449 @@
-## H&M Customer Retention Analysis
-What drives a second purchase within 90 days?
-A customer-retention portfolio project using 31.8M H&M transaction lines to understand which early customer and purchase characteristics are associated with a second observed purchase within 90 days — and how those findings could inform a CRM experiment.
+# H&M Customer Retention Analysis
 
-Analysis window: Jan 2019–May 2020
-Primary KPI: 90-day second-purchase rate
+## What drives a second purchase within 90 days?
 
-View the interactive Looker Studio dashboard · Notebook · SQL
+A customer-retention analysis using **31.8M H&M transaction lines** to understand which early customer and purchase characteristics are associated with a second observed purchase within 90 days — and how those insights could support a CRM retention strategy.
 
-Business Question
+**Analysis window:** Jan 2019–May 2020  
+**Primary KPI:** 90-day second-purchase rate
+
+### 📊 [View the Interactive Looker Studio Dashboard](https://datastudio.google.com/s/ooqWVRHK71I)
+
+---
+
+## Business Problem
+
 The CRM / Retention team wants to understand:
 
-Why do some customers make a second observed purchase within 90 days while others do not?
+> **Why do some customers make a second observed purchase within 90 days while others do not?**
 
-The goal is to identify actionable retention signals, distinguish association from causality, and translate the analysis into a testable CRM recommendation.
+The objective is to identify actionable retention signals, understand when customers are most likely to return, and translate the findings into a testable CRM recommendation.
 
-Executive Summary
-Metric	Result
-Eligible customers	685,335
-30-day repeat purchase	21.86%
-60-day repeat purchase	30.77%
-90-day repeat purchase	37.17%
-Retained within 90 days	254,739
-Median days to second purchase among retained customers	22 days
-Fashion News retention gap	+8.98 pp
-Multi-item first-purchase gap	+5.25 pp
-Main takeaway
-CRM engagement is the strongest actionable retention signal identified. Customers marked as subscribed to Fashion News had 43.53% 90-day retention compared with 34.55% among non-subscribed customers — an observed difference of +8.98 percentage points.
+---
 
-This relationship is observational, not causal, so the project concludes with a randomized CRM experiment design rather than claiming that subscription itself causes higher retention.
+## Executive Summary
 
-Key Findings
-1. 90-day retention baseline
-Among customers with a complete 90-day observation window in the comparable Jan 2019–May 2020 cohort period:
+| Metric | Result |
+|---|---:|
+| Eligible customers | **685,335** |
+| 30-day repeat purchase | **21.86%** |
+| 60-day repeat purchase | **30.77%** |
+| 90-day repeat purchase | **37.17%** |
+| Customers retained within 90 days | **254,739** |
+| Median days to second purchase among retained customers | **22 days** |
+| Fashion News retention gap | **+8.98 pp** |
+| Multi-item first-purchase gap | **+5.25 pp** |
 
-685,335 customers were eligible.
+### Key Insight
 
-254,739 made a second observed purchase within 90 days.
+**CRM engagement is the strongest actionable retention signal identified.**
 
-Overall 90-day repeat-purchase rate: 37.17%.
+Customers marked as subscribed to Fashion News showed **43.53% 90-day retention**, compared with **34.55%** among non-subscribed customers — an observed difference of **+8.98 percentage points**.
 
-The comparable window excludes early cohorts affected by the dataset start boundary and later cohorts without a complete 90-day follow-up period.
+However, this relationship is **observational, not causal**.
 
-2. Fashion News is the strongest actionable CRM signal
-Fashion News status	90-day retention
-Subscribed	43.53%
-Not subscribed	34.55%
-Unknown	23.57%
-The subscribed vs non-subscribed gap is +8.98 pp with a 95% confidence interval of approximately 8.73 to 9.23 pp.
+For that reason, the project concludes with a randomized CRM experiment proposal rather than assuming that Fashion News subscription itself causes higher retention.
 
-The gap is also positive across all 17 monthly cohorts in the comparable analysis window. However, fashion_news_frequency is not timestamped and subscription was not randomized, so this finding must be treated as an association.
+---
 
-3. First-purchase basket is an early retention signal
-Customers whose first observed purchase contained multiple articles showed higher 90-day retention:
+# Key Findings
 
-Multiple articles: 38.78%
+## 1. Overall 90-Day Retention
 
-One article: 33.53%
+Within the comparable Jan 2019–May 2020 analysis window:
 
-Raw difference: +5.25 pp
+- **685,335** customers had a complete 90-day observation window.
+- **254,739** customers made a second observed purchase within 90 days.
+- Overall 90-day retention was **37.17%**.
 
-After adjustment for age, missing-age status, first-purchase channel, and first-purchase month, the association remained positive, with an adjusted predicted difference of approximately +4.40 pp.
+Customers without sufficient follow-up time were excluded to avoid incorrectly classifying them as non-retained.
 
-This supports using first-purchase basket composition as an early segmentation signal, not as a causal driver.
+---
 
-4. Most repeat purchasing happens early
-Cumulative repeat-purchase rates increase from:
+## 2. Fashion News Is the Strongest CRM Signal
 
-21.86% within 30 days
+| Fashion News Status | 90-Day Retention |
+|---|---:|
+| Subscribed | **43.53%** |
+| Not subscribed | **34.55%** |
+| Unknown | **23.57%** |
 
-30.77% within 60 days
+The observed difference between subscribed and non-subscribed customers is:
 
-37.17% within 90 days
+**+8.98 percentage points**
 
-Among customers who do return within 90 days, the median time to second purchase is 22 days, suggesting that the first month is especially important for retention activity.
+The estimated 95% confidence interval for this difference is approximately:
 
-5. Cohort timing matters
-Monthly 90-day retention declined through much of 2019 and showed signs of recovery in early 2020. This means retention comparisons should account for acquisition / first-purchase timing rather than pooling all customers without cohort context.
+**8.73 pp to 9.23 pp**
 
-Recommended CRM Experiment
-The historical Fashion News gap is useful for identifying a testable opportunity, but it does not prove causal impact.
+The relationship was also positive across all 17 monthly cohorts in the comparable analysis window.
 
-Business question
-Can a targeted CRM re-engagement intervention increase the 90-day repeat-purchase rate among eligible customers who are not subscribed to Fashion News?
+### Important
 
-Experiment design
-Parameter	Design
-Baseline 90-day retention	34.55%
-Minimum detectable effect	+2 pp
-Significance level	5%
-Statistical power	80%
-Allocation	50 / 50
-Test	Two-sided
-Required sample per group	8,990
-Total required sample	17,980
-Estimated recruitment	~21 days
-Final 90-day readout	~111 days after launch
-The +2 pp value is a planning MDE, not an expected uplift. The historical +8.98 pp difference is observational and is not used as a causal treatment-effect assumption.
+`fashion_news_frequency` is not timestamped and customers were not randomly assigned to subscription status.
 
-Methodology
-The dataset does not contain an order_id, so a transaction row cannot be treated as a complete customer order. To avoid counting multiple articles bought on the same day as separate repeat purchases, the analysis defines a purchase occasion as:
+Therefore:
 
+> **This is an association, not evidence of causality.**
+
+---
+
+## 3. First-Purchase Basket Is an Early Retention Signal
+
+Customers who purchased multiple articles during their first observed purchase occasion showed higher 90-day retention.
+
+| First-Purchase Basket | 90-Day Retention |
+|---|---:|
+| Multiple articles | **38.78%** |
+| One article | **33.53%** |
+
+Observed difference:
+
+**+5.25 percentage points**
+
+After adjusting for age, missing-age status, first-purchase channel, and first-purchase month, the association remained positive.
+
+Adjusted predicted retention difference:
+
+**≈ +4.40 pp**
+
+This suggests that first-purchase basket composition may be useful as an early customer segmentation signal.
+
+It should not be interpreted as a causal driver of retention.
+
+---
+
+## 4. Most Repeat Purchasing Happens Early
+
+Cumulative repeat-purchase rates were:
+
+| Retention Window | Repeat-Purchase Rate |
+|---|---:|
+| 30 days | **21.86%** |
+| 60 days | **30.77%** |
+| 90 days | **37.17%** |
+
+Among customers who returned within 90 days, the median time to the second observed purchase was:
+
+**22 days**
+
+This suggests that the first month after the initial purchase may be especially important for CRM retention activity.
+
+---
+
+## 5. Cohort Timing Matters
+
+90-day retention varies across first-purchase cohorts.
+
+Retention declined through much of 2019 before showing signs of recovery in early 2020.
+
+This means retention should not be evaluated only as one global number.
+
+Customer acquisition timing and cohort effects should also be considered when comparing retention performance.
+
+---
+
+# Recommended CRM Experiment
+
+The Fashion News analysis identifies a strong CRM opportunity.
+
+However, the historical **+8.98 pp gap is observational**.
+
+To determine whether CRM activity can actually increase repeat purchasing, I designed a randomized experiment.
+
+## Business Question
+
+> **Can a targeted CRM re-engagement intervention increase the 90-day repeat-purchase rate among eligible customers who are not subscribed to Fashion News?**
+
+## Experiment Design
+
+| Parameter | Design |
+|---|---:|
+| Baseline retention | **34.55%** |
+| Minimum Detectable Effect | **+2 pp** |
+| Significance level | **5%** |
+| Statistical power | **80%** |
+| Allocation | **50 / 50** |
+| Test | **Two-sided** |
+| Required sample per group | **8,990** |
+| Total sample required | **17,980** |
+| Estimated recruitment period | **~21 days** |
+| Final 90-day readout | **~111 days after launch** |
+
+The **+2 pp MDE** is a planning assumption, not an expected uplift.
+
+The historical **+8.98 pp retention difference** is not used as the expected treatment effect because it was not generated by a randomized experiment.
+
+---
+# Methodology
+
+The H&M dataset does not contain an `order_id`.
+
+Each transaction row represents an article-level transaction line rather than a confirmed complete customer order.
+
+To avoid counting several articles purchased by the same customer on the same day as separate repeat purchases, I defined an observed purchase occasion as:
+
+```text
 customer_id + purchase_date
-The workflow then:
+```
 
-Audits transaction coverage, customers, articles, channels, and missing values.
+This means that multiple article lines purchased by the same customer on the same date are treated as **one purchase occasion** for retention analysis.
 
-Creates one row per unique customer purchase date.
+The analytical workflow was:
 
-Orders purchase dates within each customer.
+1. Audited the transaction data, including date coverage, customers, articles, sales channels, missing values, and transaction-line distribution.
+2. Created one row per unique customer purchase date.
+3. Ordered each customer's purchase dates chronologically using SQL window functions.
+4. Identified the first and second observed purchase dates.
+5. Calculated the number of days between the first and second observed purchase (`days_to_second`).
+6. Defined eligibility rules for complete 30-day, 60-day, and 90-day observation windows.
+7. Excluded customers who entered the dataset too late to have the full required follow-up period.
+8. Built monthly first-purchase cohorts to compare retention over time.
+9. Created customer-level analytical tables combining retention outcomes with customer and first-purchase characteristics.
+10. Compared retention across Fashion News status, first-purchase basket size, sales channel, product category, and cohort.
+11. Used statistical analysis to evaluate uncertainty and determine whether the strongest associations remained after adjustment.
+12. Performed power analysis for a proposed randomized CRM experiment.
+13. Prepared aggregated tables for the final Looker Studio dashboard.
 
-Identifies the first and second observed purchase dates.
+## Retention Definition
 
-Calculates days_to_second.
+The primary retention metric was defined as:
 
-Applies complete 30/60/90-day observation-window eligibility rules.
+```text
+Customers with a second observed purchase within 90 days
+--------------------------------------------------------- × 100
+Customers with a complete 90-day observation window
+```
 
-Builds monthly cohorts and customer-level analysis marts.
+This eligibility rule is important because customers who entered the dataset near the end of the observation period did not have enough time to demonstrate whether they would return within 90 days.
 
-Joins customer and first-purchase characteristics.
+Including those customers as non-retained would artificially lower the retention rate.
 
-Compares retention across CRM, basket, channel, category, and cohort segments.
+The same eligibility logic was also applied to the 30-day and 60-day retention windows.
 
-Uses statistical modeling to check whether key associations remain after adjustment.
+## Cohort Definition
 
-Performs power analysis for the proposed CRM experiment.
+Customers were grouped by the month of their first observed purchase.
 
-Builds a portfolio dashboard in Looker Studio.
+For each monthly cohort, 90-day retention was calculated only among customers with a complete 90-day observation window.
 
-Dataset
-H&M Personalized Fashion Recommendations dataset:
+The comparable cohort period used for the main analysis was:
 
-transactions_train.csv
+**January 2019 to May 2020**
 
-customers.csv
+Earlier cohorts were excluded from the main comparison because the dataset begins in September 2018. For these customers, the first transaction observed in the dataset may not represent their true first purchase.
 
-articles.csv
+Later cohorts were excluded when they did not have enough follow-up time to complete the full 90-day retention window.
 
-Transaction coverage:
+This approach reduces both:
 
-31,788,324 transaction lines
+- **Left-boundary bias** from customers whose purchasing history may have started before the dataset.
+- **Right-censoring bias** from customers who do not have enough future observation time.
 
-1,362,281 unique customers
+## Customer-Level Analysis
 
-104,547 unique articles
+After defining the retention outcome, I combined customer information with first-purchase characteristics to create a customer-level analytical dataset.
 
-20 Sep 2018 – 22 Sep 2020
+The main variables used for segmentation included:
 
-Important grain assumption
-Each transaction row represents an article line, not a confirmed order. Because there is no order_id, the project does not claim to reconstruct exact baskets or orders beyond same-day observed purchase occasions.
+- Fashion News subscription status
+- Number of articles in the first observed purchase
+- First-purchase sales channel
+- First-purchase product category
+- Customer age
+- First-purchase month
+- 90-day retention outcome
 
-Technical Stack
-SQL / DuckDB — large-scale preparation, lifecycle logic, cohort analysis, and dashboard marts
+This customer-level structure was used for descriptive comparisons, statistical analysis, adjusted modeling, and dashboard preparation.
 
-Python — pandas, statistical analysis, logistic regression, confidence intervals, and power analysis
+## Fashion News Analysis
 
-Looker Studio — interactive business dashboard and storytelling
+Customers were segmented using `fashion_news_frequency`.
 
-Git / GitHub — version control and project documentation
+The resulting 90-day retention rates were:
 
-Repository Structure
-hm-customer-retention-analysis/
-├── README.md
-├── notebooks/
-│   └── 01_retention_data_preparation.ipynb
-└── sql/
-    ├── dashboard_customer_mart.sql
-    └── retention_velocity_30_60_90d.sql
-Main files
-notebooks/01_retention_data_preparation.ipynb — end-to-end analysis, validation, statistics, and experiment design
+| Fashion News Status | 90-Day Retention |
+|---|---:|
+| Subscribed | **43.53%** |
+| Not subscribed | **34.55%** |
+| Unknown | **23.57%** |
 
-sql/retention_velocity_30_60_90d.sql — 30/60/90-day repeat-purchase metrics
+The observed retention difference between subscribed and non-subscribed customers was:
 
-sql/dashboard_customer_mart.sql — customer-level mart used to prepare dashboard outputs
+**+8.98 percentage points**
 
-Limitations
-“First purchase” means the first purchase observed in the dataset, not necessarily the customer's true first-ever H&M purchase.
+The estimated 95% confidence interval was approximately:
 
-The dataset does not include an order_id.
+**8.73 pp to 9.23 pp**
 
-fashion_news_frequency is not timestamped, so subscription status at the exact first-purchase moment cannot be confirmed.
+The subscribed vs non-subscribed gap was also positive across all 17 monthly cohorts in the comparable analysis window.
 
-Observed segment differences cannot be interpreted as causal treatment effects.
+However, this result is observational.
 
-The price field is normalized / undocumented, so the project does not interpret it as EUR revenue or use it for CLV calculations.
+`fashion_news_frequency` is not timestamped, and customers were not randomly assigned to subscription status.
 
-Very early cohorts are affected by left-boundary bias; late cohorts may not have enough follow-up time.
+Therefore, the result is interpreted as an **association rather than a causal effect**.
 
-Experiment duration is estimated from historical eligible-customer flow and should be recalculated using current production traffic before launch.
+## First-Purchase Basket Analysis
 
-Dashboard
-The interactive dashboard summarizes the retention baseline, cohort trend, Fashion News association, first-purchase basket signal, return timing, and proposed CRM experiment.
-https://datastudio.google.com/s/ooqWVRHK71I
-Business Recommendation
-Prioritize a randomized CRM re-engagement test among eligible non-subscribed customers.
+Because the dataset does not contain an `order_id`, I did not reconstruct exact customer orders.
 
-The analysis suggests that CRM engagement is strongly associated with higher repeat purchase, but only an experiment can determine whether a targeted intervention creates incremental retention. If the test produces a meaningful uplift, the strategy can then be evaluated for broader rollout and further segmentation.
-##
+Instead, I analyzed how many unique articles appeared in the customer's first observed purchase occasion.
+
+Customers were divided into:
+
+- **One article**
+- **Multiple articles**
+
+Observed 90-day retention was:
+
+| First-Purchase Basket | 90-Day Retention |
+|---|---:|
+| Multiple articles | **38.78%** |
+| One article | **33.53%** |
+
+The raw difference was:
+
+**+5.25 percentage points**
+
+To test whether this relationship remained after accounting for other customer characteristics, I used logistic regression.
+
+The adjusted model included:
+
+- Age
+- Missing-age indicator
+- First-purchase sales channel
+- First-purchase month
+
+After adjustment, the association remained positive.
+
+Adjusted predicted retention was approximately:
+
+- **38.51%** for customers with multiple articles
+- **34.11%** for customers with one article
+
+Adjusted difference:
+
+**≈ +4.40 percentage points**
+
+This suggests that first-purchase basket composition may be useful as an early segmentation signal.
+
+It should not be interpreted as a causal driver of retention.
+
+## Retention Timing
+
+I also measured how quickly customers returned after their first observed purchase.
+
+Cumulative repeat-purchase rates were:
+
+| Retention Window | Repeat-Purchase Rate |
+|---|---:|
+| 30 days | **21.86%** |
+| 60 days | **30.77%** |
+| 90 days | **37.17%** |
+
+Among customers who returned within 90 days, the median time to the second observed purchase was:
+
+**22 days**
+
+This indicates that a substantial share of repeat purchasing occurs early in the customer lifecycle.
+
+For CRM planning, the first month after the initial purchase may therefore be an especially important intervention window.
+
+## Statistical Analysis
+
+The strongest observed differences were evaluated beyond simple descriptive comparisons.
+
+The analysis included:
+
+- Retention-rate comparisons
+- Percentage-point differences
+- Confidence intervals
+- Cohort-level consistency checks
+- Logistic regression
+- Adjusted predicted probabilities
+- Experiment power analysis
+
+The purpose of the statistical analysis was not only to identify differences, but also to assess whether the strongest relationships remained meaningful after considering other factors.
+
+Observed relationships are treated as **associations** unless they are generated by a randomized experiment.
+
+## CRM Experiment Design
+
+The strongest actionable CRM signal identified in the analysis was the retention difference between Fashion News subscribers and non-subscribers.
+
+Because this difference comes from observational data, I did not interpret the historical **+8.98 pp** gap as a causal treatment effect.
+
+Instead, I used the finding to define a testable business opportunity.
+
+The proposed experiment asks:
+
+> **Can a targeted CRM re-engagement intervention increase the 90-day repeat-purchase rate among eligible customers who are not subscribed to Fashion News?**
+
+The experiment assumptions were:
+
+| Parameter | Value |
+|---|---:|
+| Baseline 90-day retention | **34.55%** |
+| Minimum Detectable Effect | **+2 pp** |
+| Significance level | **5%** |
+| Statistical power | **80%** |
+| Allocation | **50 / 50** |
+| Hypothesis test | **Two-sided** |
+
+The power analysis estimated:
+
+- **8,990 customers per group**
+- **17,980 customers in total**
+
+Based on historical eligible non-subscribed customer flow, the estimated recruitment period was approximately:
+
+**21 days**
+
+Because the primary metric requires a complete 90-day follow-up period, the final experiment readout would occur approximately:
+
+**111 days after launch**
+
+This consists of:
+
+```text
+~21 days recruitment
++
+90 days follow-up for the final recruited customers
+=
+~111 days until final readout
+```
+
+The **+2 pp MDE** is a planning assumption used for sample-size calculation.
+
+It is **not a predicted uplift**.
+
+The historical **+8.98 pp Fashion News retention gap** is observational and was not used as the expected treatment effect.
+
+## Dashboard Preparation
+
+After completing the analytical work, I created aggregated summary tables for the final Looker Studio dashboard.
+
+The dashboard was designed to communicate the main business story:
+
+1. What is the overall 90-day retention rate?
+2. When do customers return?
+3. How does retention change across monthly cohorts?
+4. Which customer characteristics are associated with higher retention?
+5. Which signal is most actionable for CRM?
+6. What experiment should the business run next?
+
+The final dashboard includes:
+
+- Eligible customers
+- Overall 90-day retention
+- Retained vs non-retained customers
+- Fashion News retention differences
+- First-purchase cohort trends
+- 30-day, 60-day, and 90-day repeat-purchase rates
+- First-purchase basket differences
+- CRM experiment recommendation
+
+The dashboard is available here:
+
+### [View the Interactive H&M Customer Retention Dashboard](https://datastudio.google.com/s/ooqWVRHK71I)
