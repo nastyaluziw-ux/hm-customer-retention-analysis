@@ -156,7 +156,7 @@ SELECT
     NULL
 FROM dashboard_customer_mart
 
-
+UNION ALL
 
 -- 30-day repeat purchase
 SELECT
